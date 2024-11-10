@@ -1,0 +1,62 @@
+/* Ensure the gradient background covers the full container */
+.gradient {
+  background: linear-gradient(45deg, #ff99d8, #ffd1e0, #e7a6d1, #b295c6, #7f8bc3, #a8c4ff);
+  background-size: 600% 100%;
+  animation: gradient 16s linear infinite alternate;
+  position: relative; /* To control the image positioning relative to this div */
+  color: white; /* Default text color */
+  overflow: hidden;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Position the text above the image */
+.text-container {
+  position: relative;
+  z-index: 1; /* Ensure the text appears on top */
+  text-align: center; /* Center the text */
+  padding-top: 20vh; /* Optional: Push text down a bit */
+}
+
+/* Responsive positioning for the image */
+.product-device {
+  position: absolute;
+  top: 15%; /* Lower the image */
+  left: 50%; /* Center image horizontally for md screens */
+  transform: translateX(-50%); /* Center the image horizontally */
+  z-index: 0; /* Ensure the image stays behind the text */
+  width: 70%; /* Make the image smaller */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure image fits the container without stretching */
+  transform: translate(-50%, 25%); /* Push the image down and partially out of the screen */
+}
+
+/* Large screens: Align the image to the right */
+@media (min-width: 992px) { /* lg breakpoint and above */
+  .product-device {
+    left: auto; /* Remove center alignment */
+    right: 0; /* Align the image to the right */
+    transform: translateX(0); /* Reset translateX for right alignment */
+  }
+}
+
+/* Optional: Add animation to the gradient (if needed) */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Ensure image inside product device stays responsive and has no border */
+.product-device img {
+  max-width: 100%; /* Adjust the size of the image */
+  height: auto;
+  border: none; /* Remove any borders */
+  outline: none; /* Remove any outlines */
+  border-radius: 10px; /* Optional: rounded corners */
+}
