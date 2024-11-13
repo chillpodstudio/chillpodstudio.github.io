@@ -20,11 +20,11 @@
 /* Responsive positioning for the image */
 .product-device {
   position: absolute;
-  top: 15%; /* Lower the image */
+  top: 25%; /* Lower the image */
   left: 50%; /* Center image horizontally for md screens */
   transform: translateX(-50%); /* Center the image horizontally */
   z-index: 0; /* Ensure the image stays behind the text */
-  width: 70%; /* Make the image smaller */
+  width: 60%; /* Make the image smaller */
   height: auto; /* Maintain aspect ratio */
   object-fit: cover; /* Ensure image fits the container without stretching */
   transform: translate(-50%, 25%); /* Push the image down and partially out of the screen */
