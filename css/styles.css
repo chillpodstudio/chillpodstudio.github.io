@@ -60,3 +60,14 @@
   outline: none; /* Remove any outlines */
   border-radius: 10px; /* Optional: rounded corners */
 }
+
+
+/* body{
+  padding: 25px;
+  background-color: #a8c4ff;
+} */
+
+.contact-box a {
+  color: #007bff;
+  text-decoration: underline;
+}
