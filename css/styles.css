@@ -1,73 +1,241 @@
-/* Ensure the gradient background covers the full container */
-.gradient {
-  background: linear-gradient(45deg, #ff99d8, #ffd1e0, #e7a6d1, #b295c6, #7f8bc3, #a8c4ff);
-  background-size: 600% 100%;
-  animation: gradient 16s linear infinite alternate;
-  position: relative; /* To control the image positioning relative to this div */
-  color: white; /* Default text color */
-  overflow: hidden;
-  height: 100vh; /* Full viewport height */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Raleway", sans-serif;
 }
 
-/* Position the text above the image */
-.text-container {
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: normal;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.scroll-container{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* -webkit-overflow-scrolling: touch; */
+  /* scroll-snap-points-x: repeat(100%); */
+}
+
+section {
+  flex: 0 0 100vw;
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+#home {
+  /* background: linear-gradient(90deg, #aab6f9 0%, #f5cbd9 100%); */
+  background-image: linear-gradient(to right top, #d16b6b, #dd6c7d, #e66e92, #ec72aa, #ed79c3, #f47bbc, #fa7eb6, #ff81b0, #ff8f88, #ffae5e, #fbd645, #befb5f);
+  /* background-image: radial-gradient(circle, #ff2727, #ff0048, #ff0067, #ff0086, #ff00a5, #ff0f98, #ff1d8c, #ff2980, #ff6153, #ff9a2a, #eece23, #befb5f);position: relative;*/
   position: relative;
-  z-index: 1; /* Ensure the text appears on top */
-  text-align: center; /* Center the text */
-  padding-top: 20vh; /* Optional: Push text down a bit */
+  overflow: hidden;
 }
 
-/* Responsive positioning for the image */
-.product-device {
+.background-image-layer {
   position: absolute;
-  top: 25%; /* Lower the image */
-  left: 50%; /* Center image horizontally for md screens */
-  transform: translateX(-50%); /* Center the image horizontally */
-  z-index: 0; /* Ensure the image stays behind the text */
-  width: 60%; /* Make the image smaller */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: cover; /* Ensure image fits the container without stretching */
-  transform: translate(-50%, 25%); /* Push the image down and partially out of the screen */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px; /* adjust height to suit your design */
+  background: url('../images/sunset.png') no-repeat center bottom;
+  background-size: cover;
+  z-index: 0;
+  opacity: 0.8; /* optional: for subtle effect */
 }
 
-/* Large screens: Align the image to the right */
-@media (min-width: 992px) { /* lg breakpoint and above */
-  .product-device {
-    left: auto; /* Remove center alignment */
-    right: 0; /* Align the image to the right */
-    transform: translateX(0); /* Reset translateX for right alignment */
-  }
+/* Bring content above the background image */
+#home .container {
+  position: relative;
+  z-index: 1;
 }
 
-/* Optional: Add animation to the gradient (if needed) */
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+#games {
+  background-color: #281549;
 }
 
-/* Ensure image inside product device stays responsive and has no border */
-.product-device img {
-  max-width: 100%; /* Adjust the size of the image */
-  height: auto;
-  border: none; /* Remove any borders */
-  outline: none; /* Remove any outlines */
-  border-radius: 10px; /* Optional: rounded corners */
+#about {
+  background-color: #281549;
+}
+
+.pink {
+  color: #c86dd7;
+}
+
+.dark-bg {
+  background-color: #281549;
+}
+
+/* Navbar */
+.nav-bar{
+  left: 90%;
+  transform: translateX(-90%);
+  gap: 30px;
+  z-index: 100;
+  background-color: transparent;
+  
+}
+
+.nav-bar.scrolled {
+  background-color: black; /* or any theme color */
+  opacity: 0.8;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  opacity: 0.5;
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.nav-item:hover {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.nav-item.active {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.nav-icon {
+  color: #fff;
+  opacity: 0.5;
+}
+
+.nav-icon:hover {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dot-indicators {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 999;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.dot.active {
+  opacity: 1;
+  background: pink;
 }
 
 
-/* body{
-  padding: 25px;
-  background-color: #a8c4ff;
-} */
 
-.contact-box a {
-  color: #007bff;
-  text-decoration: underline;
+.neon-text {
+  font-family: "Anta", sans-serif;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 40px #c86eff,
+    0 0 80px #c86eff;
+}
+
+/* Game Section */
+.game-heading{
+  color: #ff477e;
+  filter: drop-shadow(-2px 1px 0px #80ffdb);
+  font-family: "Tiny5", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+}
+.play-button {
+  text-transform: uppercase;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 1px #c86dd7,
+    0 0 50px #c86dd7,
+    0 0 50px #c86dd7;
+}
+
+.play-button:hover {
+  /* color: #FF00CC; */
+  text-shadow:
+    0 0 0px #fff,
+    0 0 0px #000,
+    0 0 0px #000,
+    0 0 0px #000;
+}
+
+.feature-overlay {
+  overflow: hidden;
+  position: relative;
+  border: #ff477e 4px solid;
+}
+
+.game-info {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  z-index: 10;
+}
+
+.feature-overlay:hover {
+  border: #a6a6a6
+  4px solid;
+  -webkit-box-shadow:0px 0px 105px 45px rgba(166,166,166,0.62);
+  -moz-box-shadow: 0px 0px 105px 45px rgba(166,166,166,0.62);
+  box-shadow: 0px 0px 105px 45px rgba(166,166,166,0.62);
+  cursor: pointer;
+}
+
+.feature-image {
+  transition: transform 0.3s ease;
+}
+
+.feature-overlay:hover .feature-image {
+  transform: scale(1.5); /* Zoom the image only */
+}
+
+.copy-popup {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: #333;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.copy-popup.show {
+  opacity: 1;
+  transform: translateY(0);
 }
