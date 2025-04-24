@@ -1,4 +1,6 @@
 html, body {
+  overscroll-behavior: none;
+  position: fixed;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -38,11 +40,12 @@ section {
 
 #home {
   /* background: linear-gradient(90deg, #aab6f9 0%, #f5cbd9 100%); */
-  background-image: linear-gradient(to right top, #d16b6b, #dd6c7d, #e66e92, #ec72aa, #ed79c3, #f47bbc, #fa7eb6, #ff81b0, #ff8f88, #ffae5e, #fbd645, #befb5f);
   /* background-image: radial-gradient(circle, #ff2727, #ff0048, #ff0067, #ff0086, #ff00a5, #ff0f98, #ff1d8c, #ff2980, #ff6153, #ff9a2a, #eece23, #befb5f);position: relative;*/
   position: relative;
   overflow: hidden;
 }
+
+
 
 .background-image-layer {
   position: absolute;
@@ -62,11 +65,7 @@ section {
   z-index: 1;
 }
 
-#games {
-  background-color: #281549;
-}
-
-#about {
+.dark-bg {
   background-color: #281549;
 }
 
@@ -74,11 +73,17 @@ section {
   color: #c86dd7;
 }
 
-.dark-bg {
-  background-color: #281549;
+.gradient-bg {
+  background: linear-gradient(to right top, #d16b6b, #dd6c7d, #e66e92, #ec72aa, #ed79c3, #f47bbc, #fa7eb6, #ff81b0, #ff8f88, #ffae5e, #fbd645, #befb5f);
 }
 
+
 /* Navbar */
+nav {
+  padding-top: env(safe-area-inset-top);
+}
+
+
 .nav-bar{
   left: 90%;
   transform: translateX(-90%);
