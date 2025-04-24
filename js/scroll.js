@@ -3,82 +3,82 @@ document.addEventListener("DOMContentLoaded", function () {
     const dots = document.querySelectorAll('.dot');
     const navLinks = document.querySelectorAll('.nav-item');
     const navBar = document.querySelector('nav');
-    const body = document.querySelector('body');
+    const body = document.body;
+    const html = document.documentElement;
 
     function setActive(index) {
         dots.forEach(dot => dot.classList.remove("active"));
         navLinks.forEach(link => link.classList.remove("active"));
 
-        if (dots[index]) {
-            dots[index].classList.add("active");
-        }
-        if (navLinks[index]) {
-            navLinks[index].classList.add("active");
+        if (dots[index]) dots[index].classList.add("active");
+        if (navLinks[index]) navLinks[index].classList.add("active");
+    }
+
+    function updateBodyBackground(index) {
+        switch (index) {
+            case 0: // Home
+            html.style.background = "linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)";
+                break;
+            case 1: // Games
+            case 2: // About
+                html.style.background = "#121212";
+                break;
+            default:
+                html.style.background = "";
         }
     }
 
-    setActive(0); // on page load
-
-    // Function to check if a vertical scrollbar is present on the body
-    // Function to check if the body is scrolled down
     function isScrolled() {
         return body.scrollTop > 1;
     }
 
-    // Function to add or remove the class based on scroll position
     function toggleScrollbarClass() {
-        if (isScrolled()) {
-            navBar.classList.add('scrolled');
-        } else {
-            navBar.classList.remove('scrolled');
-        }
+        navBar.classList.toggle('scrolled', isScrolled());
     }
 
-    // Check on page load
-    toggleScrollbarClass();
-
-    // Update on scroll event of the body
-    body.addEventListener('scroll', () => {
-        toggleScrollbarClass();
-    });
-
-
-    // Update active dot and nav link on scroll
-    scrollContainer.addEventListener('scroll', () => {
+    // Determine the current section index based on scroll position
+    function getActiveIndex() {
         const scrollLeft = scrollContainer.scrollLeft;
         const sectionWidth = window.innerWidth;
-        const activeIndex = Math.round(scrollLeft / sectionWidth);
+        return Math.round(scrollLeft / sectionWidth);
+    }
+
+    // Initialize on page load
+    const initialIndex = getActiveIndex();
+    setActive(initialIndex);
+    updateBodyBackground(initialIndex);
+    toggleScrollbarClass();
+
+    // Scroll event for vertical scroll on body (if needed)
+    body.addEventListener('scroll', toggleScrollbarClass);
+
+    // Horizontal scroll in the scroll-container
+    scrollContainer.addEventListener('scroll', () => {
+        const activeIndex = getActiveIndex();
         setActive(activeIndex);
+        updateBodyBackground(activeIndex);
     });
 
-    // Nav link click scrolls and updates hash
+    // Handle nav link clicks
     navLinks.forEach((link, index) => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); // prevent the jump
-    
-            const targetId = link.getAttribute('href'); // e.g., "#games"
-    
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
             scrollContainer.scrollTo({
                 left: window.innerWidth * index,
                 behavior: 'smooth'
             });
-    
-            // Set the hash manually
             history.pushState(null, null, targetId);
         });
     });
-    
-    
 
-    // Dots are clickable
+    // Handle dot clicks
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             scrollContainer.scrollTo({
                 left: window.innerWidth * index,
                 behavior: 'smooth'
             });
-
-            // Optional: update hash here too, if your sections have IDs
             const targetLink = navLinks[index];
             if (targetLink) {
                 const targetId = targetLink.getAttribute('href');
