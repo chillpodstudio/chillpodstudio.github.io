@@ -3,82 +3,82 @@ document.addEventListener("DOMContentLoaded", function () {
     const dots = document.querySelectorAll('.dot');
     const navLinks = document.querySelectorAll('.nav-item');
     const navBar = document.querySelector('nav');
-    const body = document.body;
-    const html = document.documentElement;
+    const body = document.querySelector('body');
 
     function setActive(index) {
         dots.forEach(dot => dot.classList.remove("active"));
         navLinks.forEach(link => link.classList.remove("active"));
 
-        if (dots[index]) dots[index].classList.add("active");
-        if (navLinks[index]) navLinks[index].classList.add("active");
-    }
-
-    function updateBodyBackground(index) {
-        switch (index) {
-            case 0: // Home
-            html.style.background = "linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%)";
-                break;
-            case 1: // Games
-            case 2: // About
-                html.style.background = "#121212";
-                break;
-            default:
-                html.style.background = "";
+        if (dots[index]) {
+            dots[index].classList.add("active");
+        }
+        if (navLinks[index]) {
+            navLinks[index].classList.add("active");
         }
     }
 
+    setActive(0); // on page load
+
+    // Function to check if a vertical scrollbar is present on the body
+    // Function to check if the body is scrolled down
     function isScrolled() {
         return body.scrollTop > 1;
     }
 
+    // Function to add or remove the class based on scroll position
     function toggleScrollbarClass() {
-        navBar.classList.toggle('scrolled', isScrolled());
+        if (isScrolled()) {
+            navBar.classList.add('scrolled');
+        } else {
+            navBar.classList.remove('scrolled');
+        }
     }
 
-    // Determine the current section index based on scroll position
-    function getActiveIndex() {
-        const scrollLeft = scrollContainer.scrollLeft;
-        const sectionWidth = window.innerWidth;
-        return Math.round(scrollLeft / sectionWidth);
-    }
-
-    // Initialize on page load
-    const initialIndex = getActiveIndex();
-    setActive(initialIndex);
-    updateBodyBackground(initialIndex);
+    // Check on page load
     toggleScrollbarClass();
 
-    // Scroll event for vertical scroll on body (if needed)
-    body.addEventListener('scroll', toggleScrollbarClass);
-
-    // Horizontal scroll in the scroll-container
-    scrollContainer.addEventListener('scroll', () => {
-        const activeIndex = getActiveIndex();
-        setActive(activeIndex);
-        updateBodyBackground(activeIndex);
+    // Update on scroll event of the body
+    body.addEventListener('scroll', () => {
+        toggleScrollbarClass();
     });
 
-    // Handle nav link clicks
+
+    // Update active dot and nav link on scroll
+    scrollContainer.addEventListener('scroll', () => {
+        const scrollLeft = scrollContainer.scrollLeft;
+        const sectionWidth = window.innerWidth;
+        const activeIndex = Math.round(scrollLeft / sectionWidth);
+        setActive(activeIndex);
+    });
+
+    // Nav link click scrolls and updates hash
     navLinks.forEach((link, index) => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
+            e.preventDefault(); // prevent the jump
+    
+            const targetId = link.getAttribute('href'); // e.g., "#games"
+    
             scrollContainer.scrollTo({
                 left: window.innerWidth * index,
                 behavior: 'smooth'
             });
+    
+            // Set the hash manually
             history.pushState(null, null, targetId);
         });
     });
+    
+    
 
-    // Handle dot clicks
+    // Dots are clickable
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             scrollContainer.scrollTo({
                 left: window.innerWidth * index,
                 behavior: 'smooth'
             });
+
+            // Optional: update hash here too, if your sections have IDs
             const targetLink = navLinks[index];
             if (targetLink) {
                 const targetId = targetLink.getAttribute('href');
