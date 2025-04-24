@@ -8,7 +8,7 @@ html, body {
   background-color: #281549;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.typo-heading {
   font-family: 'Courier New', Courier, monospace;
   font-weight: normal;
   font-optical-sizing: auto;
@@ -239,4 +239,9 @@ section {
 .copy-popup.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+a{
+  color: #FFDDCC;
+  text-decoration: none;
 }
